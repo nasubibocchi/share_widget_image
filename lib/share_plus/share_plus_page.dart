@@ -27,7 +27,9 @@ class SharePlusPage extends StatelessWidget {
 
       final path = applicationDocumentsFile.path;
 
-      await Share.shareWithResult('file://$path', subject: 'image');
+      await Share.shareFilesWithResult([path], text: text);
+      // 画像のみをシェアしたい場合は以下のコメントを外し、↑をコメントアウト
+      // await Share.shareWithResult(['file://$path'], text: text);
 
       applicationDocumentsFile.delete();
     } catch (error) {
@@ -67,8 +69,8 @@ class SharePlusPage extends StatelessWidget {
             SharedWidget(sharedKey: sharedKey),
             const SizedBox(height: 50),
             ElevatedButton.icon(
-              onPressed: () async => await _onTapShareButton(
-                  text: 'image_component', globalKey: sharedKey),
+              onPressed: () async =>
+                  await _onTapShareButton(text: 'image', globalKey: sharedKey),
               label: const Text('share'),
               icon: const Icon(Icons.ios_share),
             ),
